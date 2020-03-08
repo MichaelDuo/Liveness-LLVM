@@ -32,6 +32,7 @@ struct ValueNumbering : public FunctionPass {
       set<Value*> *VarKill = &(*bbInfo)["VarKill"];
       set<Value*> *UEVar = &(*bbInfo)["UEVar"];
 
+      // load instruction
       if(inst.getOpcode()==31){
         Value* v = inst.getOperand(0);
         if(VarKill->find(v) == VarKill->end()){
@@ -39,11 +40,11 @@ struct ValueNumbering : public FunctionPass {
         }
       }
 
+      // set instruction
       if(inst.getOpcode()==32){
         VarKill->insert(inst.getOperand(1));
       }
     }
-
   }
 
   void findLiveout(map<BasicBlock*, map<string, set<Value*>>> &table, Function &F){

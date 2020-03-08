@@ -1,0 +1,18 @@
+Liveness: test
+----- %entry -----
+UEVar: b c 
+VarKill: e 
+LiveOut: a b c e 
+----- %if.then -----
+UEVar: a 
+VarKill: e 
+LiveOut: c e 
+----- %if.else -----
+UEVar: b c 
+VarKill: a 
+LiveOut: c e 
+----- %if.end -----
+UEVar: c e 
+VarKill: a 
+LiveOut: 
+Liveness: main
